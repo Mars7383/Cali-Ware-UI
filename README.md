@@ -1,9 +1,11 @@
-# Cali-Ware UI
+<h1>Cali-Ware UI</h1>
 A remake of Calamari-M's user interface for Script-Ware M, made with <a href="https://reactdesktop.js.org">react-desktop</a> and <a href="https://www.electronjs.org/">electron.js</a>
 
-***
+<center><a href="https://github.com/Mars7383/Cali-Ware-UI/releases/"><img src="https://cdn.discordapp.com/attachments/765583918656389180/884535880340090910/CW.png" width="400"></img></a></center>
 
-## FAQ
+<hr>
+
+<h2>FAQ</h2>
 <details>
   <summary><strong>Is this a free mac exploit?!??!?</strong></summary>
   <br>
@@ -13,7 +15,7 @@ A remake of Calamari-M's user interface for Script-Ware M, made with <a href="ht
 <details>
   <summary><strong>Why is the source code incomplete?</strong></summary>
   <br>
-  In order to comply with the requests of the Script-Ware team, any code taken from <a href="https://script-ware.com/m">Script-Ware M</a> or <a href="https://jellyfish.thelmgn.com/">Jellyfish 3</a> (with permission) should not be included in a public repository. However, you may download a fully functional macOS application from the releases section of this repository.
+  In order to comply with the requests of the Script-Ware team, any code taken from <a href="https://script-ware.com/m">Script-Ware M</a> or <a href="https://jellyfish.thelmgn.com/">Jellyfish 3</a> (with permission) should not be included in a public repository. However, you may download a fully functional macOS application from the <a href="https://github.com/Mars7383/Cali-Ware-UI/releases/">releases section</a> of this repository.
   <br>
 </details>
 <details>
@@ -29,5 +31,5 @@ A remake of Calamari-M's user interface for Script-Ware M, made with <a href="ht
   <br>
 </details>
 
-## Credits
+<h2>Credits</h2>
 Please refer to the <a href="CREDITS.md">credits file</a>
