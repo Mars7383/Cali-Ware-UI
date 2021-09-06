@@ -7,7 +7,7 @@
     <li><a href="https://discord.com/users/704056867294412881">Discord</a></li>
   </ul>
   <br>
-  <li><strong>theLMGN</strong> - Script-Ware M UI developer, wrote the SWM native interaction code used in this project</li>
+  <li><strong>theLMGN</strong> - Script-Ware M UI developer, wrote the SWM nativeInteraction API used in this project</li>
   <ul>
     <li><a href="https://github.com/theLMGN">GitHub</a></li>
     <li><a href="https://thelmgn.com">Website</a></li>
