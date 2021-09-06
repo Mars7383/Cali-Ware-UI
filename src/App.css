@@ -1,0 +1,108 @@
+html, body {margin: 0; height: 100%; overflow: hidden} /* https://stackoverflow.com/questions/28411499/disable-scrolling-on-body */
+
+.inline {
+  display:flex; 
+  flex-direction:row;
+}
+.editorBox {
+  resize: none;
+  /* v taken from react-desktop source v */
+  line-height: 15px;
+  font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", Arial, sans-serif;
+  font-size: 13px;
+  letter-spacing: 0.4px;
+  /* ^ taken from react-desktop source ^ */
+  outline: none;
+  width: 345px;
+  height: 200px;
+  border-color: #c8c8c8;
+}
+.outputBox {
+  resize: none;
+  margin-top: 5px;
+  /* v taken from react-desktop source v */
+  line-height: 15px;
+  font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", Arial, sans-serif;
+  font-size: 11.5px;
+  letter-spacing: 0.4px;
+  /* ^ taken from react-desktop source ^ */
+  outline: none;
+  width: 315px;
+  height: 80px;
+  color: #be4039;
+  border-color: #c8c8c8;
+}
+
+.editorBox::-webkit-scrollbar, .outputBox::-webkit-scrollbar {
+  display: none;
+}
+
+#helpButton {
+  position: absolute;
+  border-width: 0.5px;
+  border-color: #acacac;
+  border-style: solid;
+  background-color: white;
+  border-radius: 50px;
+  width: 21px;
+  height: 21px;
+  left: 482px;
+  top: 279px;
+  outline: none;
+}
+
+#folderIconOpenSavesButton {
+  position: absolute;
+  left: 23px;
+  top: 199px;
+}
+
+#loginPage {
+  background-color: #ececec;
+}
+
+#statusView {
+  background-color: white;
+  border: none;
+}
+
+#loginPageAppLogo {
+  position: relative;
+  top: -217px;
+  left: 70px;
+}
+#loginPageUsernameField {
+  position: relative;
+  top: -197px;
+  left: 280px;
+}
+#loginPagePasswordField {
+  position: relative;
+  top: -192px;
+  left: 280px;
+}
+#loginPageAuthButton {
+  position: relative;
+  top: -187px;
+  left: 280px;
+}
+
+#loginPageCopyrightNotice {
+  position: relative;
+  top: -120px;
+  left: 70px;
+}
+
+#executorElements {
+  position: relative;
+  left:-15px;
+}
+
+Button {
+  margin-bottom: 5px;
+}
+hr {
+  border-color: #f7f5f7;
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
