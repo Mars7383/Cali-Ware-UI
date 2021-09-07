@@ -1,6 +1,7 @@
 {
   "name": "caliware",
   "version": "1.0.0",
+  "bootstrapperVersion": "1.0.0",
   "private": true,
   "main": "electron/main.js",
   "dependencies": {
