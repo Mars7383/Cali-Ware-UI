@@ -106,7 +106,7 @@ export default class extends Component {
         </div>
         </div>
         <div>
-         <Label marginLeft="10px">Calamari-M - Selects</Label>
+         <Label marginLeft="17px">Calamari-M - Selects</Label>
            <Box padding="5px 5px 0px 5px" marginLeft="10px" width="130">
                <Button color="white" padding="0px 24px 0px 24px" onClick={() => window.execute(`CalamariDefaults://DexRaw`) }>
              Dex by Moon
@@ -152,7 +152,8 @@ export default class extends Component {
       this.renderItem(2, 'Tools & Tricks', 
       <div className='inline'>
       <React.Fragment>
-        <Box label="LocalPlayer" padding="5px 5px" marginRight="5px" marginLeft="-15px" width="203">
+        <Text size="11px" id="localPlayerLabel">LocalPlayer</Text>
+        <Box label="&#8203;" padding="5px 5px" marginRight="5px" marginLeft="-15px" width="203">
             <div className='inline'>
               <Label marginRight="-95px" marginTop="4px">Number Value:</Label>
               <TextInput

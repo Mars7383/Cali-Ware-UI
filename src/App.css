@@ -98,6 +98,21 @@ html, body {margin: 0; height: 100%; overflow: hidden} /* https://stackoverflow.
   left:-15px;
 }
 
+#localPlayerLabel {
+  display: block;
+  user-select: none;
+  cursor: default;
+  font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", Arial, sans-serif;
+  font-size: 11px;
+  color: rgb(0, 0, 0);
+  line-height: 13.2px;
+
+  position: absolute;
+  top: 23px;
+  left: 10px;
+  
+}
+
 Button {
   margin-bottom: 5px;
 }
