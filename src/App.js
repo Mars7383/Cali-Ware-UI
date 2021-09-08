@@ -173,10 +173,10 @@ export default class extends Component {
               </Button>
             </div>
             <div className='inline'>
-              <Button size="12px" color="white" padding="0px 25px 0px 24px" onClick={() => window.execute("game:GetService('Players').LocalPlayer.Character.Humanoid.JumpHeight=" + parseFloat(document.getElementById("toolsTricksNumInput").value))}>
+              <Button size="12px" color="white" padding="0px 25px 0px 24px" onClick={() => window.execute("game:GetService('Players').LocalPlayer.Character.Humanoid.JumpHeight=" + parseFloat(document.getElementById("toolsTricksNumInput").value) + " game:GetService('Players').LocalPlayer.Character.Humanoid.JumpPower=" + parseFloat(document.getElementById("toolsTricksNumInput").value))}>
                 Set JumpPower
               </Button>
-              <Button color="white" onClick={() => window.execute("game:GetService('Players').LocalPlayer.Character.Humanoid.JumpHeight=7.2")}>
+              <Button color="white" onClick={() => window.execute("game:GetService('Players').LocalPlayer.Character.Humanoid.JumpHeight=7.2 game:GetService('Players').LocalPlayer.Character.Humanoid.JumpPower=50")}>
                 Reset
               </Button>
             </div>

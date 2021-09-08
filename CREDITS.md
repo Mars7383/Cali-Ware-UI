@@ -36,6 +36,15 @@
   <li><strong>AzulX/Xeradius</strong> - Provided <a href="https://www.youtube.com/channel/UCGN8ogUvAXFolvYqVETT0ZQ/videos">screen recordings</a> of Calamari-M's UI</li>
   <ul>
     <li><a href="https://discord.com/users/877148164350681128">Discord</a></li>
+    <br>
   </ul>
-  <br>
+  <h2>Q&A Testing</h2>
+  <ul>
+    <li><a href="https://discord.com/users/572830503158284308">mattt#0001</a></li>
+    <li><a href="https://discord.com/users/556636433637703725">StereoThermal#7969</a></li>
+    <li><a href="https://discord.com/users/716124330718658633">AMD#0869</a></li>
+    <li><a href="https://discord.com/users/745140321091846196">Exptic#1984</a></li>
+    <li><a href="https://discord.com/users/721544459086594049">ImmaturityDetected#1968</a></li>
+    <br>
+  </ul>
 </ul>

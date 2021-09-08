@@ -1,4 +1,4 @@
-const { app, ipcMain, BrowserWindow, screen: electronScreen, nativeTheme, session } = require('electron');
+const { app, ipcMain, BrowserWindow, screen: electronScreen, nativeTheme, session, Notification } = require('electron');
 const isDev = require('electron-is-dev');
 const fs = require("fs")
 const path = require("path")
@@ -37,7 +37,15 @@ const createMainWindow = () => {
     mainWindow.once('ready-to-show', () => mainWindow.show());
 
     mainWindow.on('close', (e) => {
+        /*
+        if (!isDev && `${path.join(__dirname, "../../newapp.asar")}`) {
+            fs.unlinkSync(`${path.join(__dirname, "../../app.asar")}`);
+            fs.renameSync(`${path.join(__dirname, "../../newapp.asar")}`, `${path.join(__dirname, "../../app.asar")}`, () => {
+                console.log("Updated!");
+            });
+        }
         app.exit();
+        */
         if (forceQuit) {
             /* the user tried to quit the app */
             window = null;
@@ -65,11 +73,113 @@ const createMainWindow = () => {
     LIKE WTF 
     */
     setInterval(function () {
-        mainWindow.maximizable = false;
-        mainWindow.resizable = false;
-        mainWindow.closable = false;
+        try {
+            mainWindow.maximizable = false;
+            mainWindow.resizable = false;
+            mainWindow.closable = false;
+        } catch (e) {}
     }, 1000);
 };
+
+async function checkForUpdate() {
+    if (isDev) return;
+    try {
+    let newVersion;
+    let newBootstrapperVersion;
+    const updateInfo = await fetch('https://raw.githubusercontent.com/Mars7383/Cali-Ware-UI/main/package.json').then(res => res.json())
+    .then((json) => {
+        // do something with JSON
+        newVersion = json.version;
+        newBootstrapperVersion = json.bootstrapperVersion;
+    });
+    //newVersion = await updateInfo.json().version;
+    let currentInfo = require(`${path.join(__dirname, "../package.json")}`);
+    let currentVersion = currentInfo.version;
+    let currentBootstrapperVersion = currentInfo.bootstrapperVersion;
+        if (currentVersion != newVersion) {
+        if (newBootstrapperVersion != currentBootstrapperVersion) {
+            let updateNotif = new Notification({ title: "Outdated Cali-Ware App", body: "Please download the update manually from GitHub by clicking here" })
+            updateNotif.show()
+            updateNotif.on('click', (event, arg)=>{
+                require('electron').shell.openExternal("https://github.com/Mars7383/Cali-Ware-UI/releases")
+            })
+            return;
+        }
+        let res = await fetch(`https://github.com/Mars7383/Cali-Ware-UI/releases/download/v${newVersion}/update.asar`);
+        console.log(res);
+        if (!res.ok) console.log("Error downloading update.")
+        let dest = fs.createWriteStream(`${path.join(__dirname, "../../newapp.asar.part")}`);  
+        res.body.pipe(dest);
+        await new Promise((fufilled,reject) => {res.body.on("end",fufilled)})
+        fs.renameSync(`${path.join(__dirname, "../../newapp.asar.part")}`,`${path.join(__dirname, "../../newapp.asar")}`)
+
+        /*
+        await fetch(`https://cdn.script-ware.com/mac/app2.3.3.asar.file`).then(res => { //`https://github.com/Mars7383/Cali-Ware-UI/releases/download/v${newVersion}/update.asar`
+            let writeStream = fs.createWriteStream(`${path.join(__dirname, "../../newapp.asar.part")}`)
+            res.body.pipe(writeStream);
+            new Promise(fulfill => writeStream.on("finish", fulfill));
+        }).then(() => {
+            fs.renameSync(`${path.join(__dirname, "../../newapp.asar.part")}`, `${path.join(__dirname, "../../newapp.asar")}`);
+        }).catch(error =>{
+            console.log(error);
+        })
+        */
+
+        /*
+        if (!updateFile.ok) {
+            console.log("Bad response from update server!")
+            return;
+        }
+        
+        
+        await new Promise((resolve, reject) => {
+            
+        });
+        */
+
+        console.log("Update downloaded!");
+    }
+    } catch (e) {
+        console.log("Error downloading update: " + e)
+        let updateNotif = new Notification({ title: "Error Updating Cali-Ware", body: "Please download the update manually from GitHub by clicking here" })
+        updateNotif.show()
+        updateNotif.on('click', (event, arg)=>{
+            require('electron').shell.openExternal("https://github.com/Mars7383/Cali-Ware-UI/releases")
+        })
+    }
+}
+checkForUpdate();
+
+ipcMain.handle("autoUpdates", async (evt, arg) => {
+    if (arg == false) {
+        if (fs.existsSync(`${path.join(__dirname, "../../skipUpdateChecking")}`)) return 'Auto updates already disabled!';
+        fs.writeFileSync(`${path.join(__dirname, "../../skipUpdateChecking")}`, " "); 
+        return 'Disabled auto updates! Relaunch to take effect.';
+    }
+    if (arg == true) {
+        if (fs.existsSync(`${path.join(__dirname, "../../skipUpdateChecking")}`)) {
+            fs.unlinkSync(`${path.join(__dirname, "../../skipUpdateChecking")}`);
+            return 'Enabled auto updates! Relaunch to take effect.'
+        } else {
+            return 'Auto updates already enabled!';
+        }
+    }
+})
+
+/* 'before-quit' is emitted when Electron receives 
+ * the signal to exit and wants to start closing windows */
+app.on('before-quit', () => {
+    console.log("Is dev? " + isDev);
+    console.log("Update path exists? " + fs.existsSync(`${path.join(__dirname, "../../newapp.asar")}`));
+    console.log("Path: " + path.join(__dirname, "../../newapp.asar"));
+    if (!isDev && fs.existsSync(`${path.join(__dirname, "../../newapp.asar")}`)) {
+        fs.unlinkSync(`${path.join(__dirname, "../../app.asar")}`);
+        fs.renameSync(`${path.join(__dirname, "../../newapp.asar")}`, `${path.join(__dirname, "../../app.asar")}`, () => {
+            console.log("Updated!");
+        });
+    }
+    app.exit();
+});
 
 app.whenReady().then(() => {
     createMainWindow();
@@ -94,9 +204,5 @@ app.on('window-all-closed', () => {
     }
 });
 */
-
-/* 'before-quit' is emitted when Electron receives 
- * the signal to exit and wants to start closing windows */
-app.on('before-quit', () => app.exit());
 
 require("./script-ware-electron-funcs.js"); // Exempt from source code
