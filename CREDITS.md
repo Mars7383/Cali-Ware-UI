@@ -38,6 +38,7 @@
     <li><a href="https://discord.com/users/877148164350681128">Discord</a></li>
     <br>
   </ul>
+</ul>  
   <h2>Q&A Testing</h2>
   <ul>
     <li><a href="https://discord.com/users/572830503158284308">mattt#0001</a></li>
@@ -47,4 +48,3 @@
     <li><a href="https://discord.com/users/721544459086594049">ImmaturityDetected#1968</a></li>
     <br>
   </ul>
-</ul>
