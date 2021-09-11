@@ -264,7 +264,7 @@ a.Parent = game:GetService("Players").LocalPlayer.Backpack`
             <Button color="white" padding="0px 13px 0px 13px" onClick={() => window.execute("CalamariDefaults://TrueHeroUltima")}>
               True Hero Ultima
             </Button>
-            <Button color="white" padding="0px 8px 0px 8px" onClick={() => window.execute("CalamariDefaults://DoubleTailsMusic")}>
+            <Button color="white" padding="0px 8px 0px 8px" onClick={() => window.execute("CalamariDefaults://DoubleMusicTails")}>
               Double Tails Music
             </Button>
             <Button color="white" padding="0px 32px 0px 32px" onClick={() => window.execute("CalamariDefaults://GodClaws")}>
