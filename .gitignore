@@ -3,6 +3,7 @@ script-ware-electron-funcs.js
 ScriptWareAuth.node
 Release/
 dist/
+static/
 node_modules/
 package-lock.json
 react-README.md

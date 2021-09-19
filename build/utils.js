@@ -1,8 +1,68 @@
+const fs2 = require("fs"); // these have a 2 in their name because they are redeclared in the other js file and that makes the interpreter sad :(
+const path2 = require("path")
+// Load prefs
+let prefsFileLocation2 = path2.join(__dirname, "../../config.json");
+var prefsObj2;
+if (fs2.existsSync(prefsFileLocation2)) {
+    prefsObj2 = require(prefsFileLocation2);
+} else {
+    prefsObj2 = { 
+        legacyWindow: false,
+        multiInject: false,
+        autoUpdate: true
+    };
+}
+// Run prefs
+let checkedStyle = "user-select: none; -webkit-appearance: none; border-width: 1px; border-style: solid; border-color: rgb(44, 145, 252); border-radius: 3px; background-color: rgb(59, 153, 252); padding: 6px; margin: 0px 1px; box-shadow: none; transition: all 0.4s ease 0s;";
+window.addEventListener('load', function () { // DOM is so annoying
+    // Legacy window mode
+    if (prefsObj2.legacyWindow) {
+        document.body.style.width = "521";
+        document.body.style.height = "365";
+        document.body.style.borderRadius = "5px";
+        document.getElementById("titlebar").style.visibility = "visible";
+        document.getElementById("titlebar").style.position = "static";
+        for (i = 0; i < document.getElementsByTagName("div").length; i++) {
+            if (document.getElementsByTagName("div")[i].style.width == "520px" || document.getElementsByTagName("div")[i].style.width == "521px") {
+                document.getElementsByTagName("div")[i].style.backgroundColor = "#ffffff"
+            }
+        }
+    }
+    if (prefsObj2.legacyWindow) {
+        document.getElementById("legacyWindowToggle").checked = true;
+    }
+    if (prefsObj2.multiInject) {
+        document.getElementById("multiInjectToggle").checked = true;
+    }
+    if (prefsObj2.autoUpdate) {
+        document.getElementById("autoUpdateToggle").checked = true;
+    }
+})
+
+/*
 async function disableUpdates() {
-    console.log(await ipcRenderer.invoke("autoUpdates", false));
+    console.log(await ipcRenderer.invoke("setPref", {pref: "autoUpdate", prefValue: false}));
 }
 async function enableUpdates() {
-    console.log(await ipcRenderer.invoke("autoUpdates", true));
+    console.log(await ipcRenderer.invoke("setPref", {pref: "autoUpdate", prefValue: false}));
+}
+*/
+window.setPreference = async function(preference, value) { // string preference, bool value
+    console.log(await ipcRenderer.invoke("setPref", {"pref": preference, "prefValue": value}));
+}
+
+window.minimizeWindow = function() {
+    require("electron").remote.BrowserWindow.getFocusedWindow().minimize();
+}
+
+window.togglePreferencePane = function(bool) {
+    if (bool) {
+        document.getElementById("configPage").style.position = "static"
+        document.getElementById("configPage").style.visibility = "visible"
+    } else {
+        document.getElementById("configPage").style.position = "absolute"
+        document.getElementById("configPage").style.visibility = "hidden"
+    }
 }
 
 /*  

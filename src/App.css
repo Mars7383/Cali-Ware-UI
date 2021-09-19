@@ -1,4 +1,28 @@
-html, body {margin: 0; height: 100%; overflow: hidden} /* https://stackoverflow.com/questions/28411499/disable-scrolling-on-body */
+html, body {
+  margin: 0; 
+  height: 100%; 
+  overflow: hidden; /* https://stackoverflow.com/questions/28411499/disable-scrolling-on-body */
+  /*
+  width: 521px;
+  height: 365px;
+  border-radius: 5px;
+  */
+}
+
+#titlebar {
+  visibility: hidden;
+  position: absolute;
+}
+
+#configPage {
+  visibility: hidden;
+  position: absolute;
+  background-color: #ffffff;
+}
+
+#fillerbg {
+  background-color: #ffffff;
+}
 
 .inline {
   display:flex; 
@@ -111,6 +135,17 @@ html, body {margin: 0; height: 100%; overflow: hidden} /* https://stackoverflow.
   top: 23px;
   left: 10px;
   
+}
+
+#swchan {
+  position: absolute;
+  left: 380px;
+  top: 0px;
+  opacity: 0;
+}
+
+#swchan:hover {
+  opacity: 1;
 }
 
 Button {

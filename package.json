@@ -1,6 +1,6 @@
 {
   "name": "caliware",
-  "version": "1.1.2",
+  "version": "1.2.0",
   "bootstrapperVersion": "1.0.0",
   "private": true,
   "main": "electron/main.js",
@@ -68,7 +68,8 @@
     ],
     "extends": null,
     "mac": {
-      "type": "distribution"
+      "type": "distribution",
+      "target": "zip"
     }
   }
 }

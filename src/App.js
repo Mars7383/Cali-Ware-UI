@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {TextInput, Label, Button, Box, SegmentedControl, SegmentedControlItem, Text } from 'react-desktop/macOs';
+import {TitleBar, TextInput, Label, Button, Box, SegmentedControl, SegmentedControlItem, Text, Checkbox } from 'react-desktop/macOs';
 import './App.css';
 
 export default class extends Component {
@@ -7,11 +7,13 @@ export default class extends Component {
   constructor() {
     super();
     this.state = { selected: 1, sFullscreen: false }
+    this.minimize = () => window.minimizeWindow();
   }
 
   render() {
     return (
       <React.Fragment>
+      <TitleBar title="Calamari" controls onMinimizeClick={this.minimize} id="titlebar"/>
       <div id="loginPage">
           <iframe id="statusView" src="https://mattt.lol/calamari/logpanel" height="365" width="275"></iframe>
           <img draggable="false" id="loginPageAppLogo" width="100px" height="100px" src="img/AppLogo.png"></img>
@@ -39,6 +41,52 @@ export default class extends Component {
           </Button>
           <Text id="loginPageCopyrightNotice" padding="0 100px" textAlign="center" size="14">©️ 2020 Inspect</Text>
       </div>
+
+      <div id="configPage">
+        <Box padding="10px 30px" height='100%'>
+        <br></br>
+        <Label marginTop="15px">Configuration</Label>
+        <br></br>
+        <input type="checkbox"
+          id="legacyWindowToggle"
+          onClick= {(e) => {window.setPreference("legacyWindow", document.getElementById("legacyWindowToggle").checked)}}
+        ></input>Legacy window mode (High Sierra styled)
+        <br></br>
+        <input type="checkbox"
+          id="multiInjectToggle"
+          onClick= {(e) => {window.setPreference("multiInject", document.getElementById("multiInjectToggle").checked); if(document.getElementById("multiInjectToggle").checked)alert("This is currently just a proof of concept. Please read the release page of v1.2.0 if you want more information.");}}
+        ></input>Multi-inject mode (experimental)
+        <br></br>
+        <input type="checkbox"
+          id="autoUpdateToggle"
+          onClick= {(e) => {window.setPreference("autoUpdate", document.getElementById("autoUpdateToggle").checked)}}
+        ></input>Auto updates
+        <img src="https://cdn.discordapp.com/attachments/765583918656389180/888188419921047562/2RMa5FjfEo1vgIAgA9GA1xpaZ6fAv4KQQAKmpn0N.png" width="100px" id="swchan"></img>
+        <Label marginTop="15px">Changes require an app restart. You may encounter bugs while testing with these options!</Label>
+        <br></br>
+        <br></br>
+        <br></br>
+        <br></br>
+        <Button color="white" marginRight="10px" onClick={() => {
+          window.openResourcesFolder();
+        }}>
+            Open Resources Folder
+        </Button>
+        <br></br>
+        <hr></hr>
+        <center>
+          <Button color="white" marginRight="10px" onClick={() => window.togglePreferencePane(false)}>
+            Back
+          </Button>
+          <Button color="white" onClick={() => window.open('https://github.com/Mars7383/Cali-Ware-UI/blob/main/CREDITS.md')}>
+            Credits
+          </Button>
+        </center>
+        <br></br>
+        <br></br>
+        <br></br>
+        </Box>
+      </div>
       <SegmentedControl box width="520px">
         {this.renderItems()}
       </SegmentedControl>
@@ -46,37 +94,9 @@ export default class extends Component {
     );
   }
 
-  /*
-  render() {
-    return (
-      <TitleBar
-        title="untitled text 5"
-        controls
-        isFullscreen={this.state.isFullscreen}
-        onCloseClick={() => console.log('Close window')}
-        onMinimizeClick={() => console.log('Minimize window')}
-        onMaximizeClick={() => console.log('Mazimize window')}
-        onResizeClick={() => this.setState({ isFullscreen: !this.state.isFullscreen })}
-      />
-    );
-  }
-  */
-
-
   renderItems() {
     return [
       this.renderItem(1, 'Executor', 
-      /*
-
-      react-desktop's TextInput isn't multiline :(
-
-        <TextInput
-          defaultValue=""
-          width="300px"
-          className="editorBox"
-          onChange={this.handleChange}
-        />
-        */
        <div className="inline" id="executorElements">
         <React.Fragment>
         <div>
@@ -140,7 +160,7 @@ export default class extends Component {
          </Box>
             <div className="inline" >
                 <Button color="white" marginTop="9px" marginLeft="7px" padding="0px 10px 0px 10px"  onClick={() => window.inject()}>Attach Calamari</Button>
-               <button id="helpButton" onClick={() => window.open('https://github.com/Mars7383/Cali-Ware-UI/blob/main/CREDITS.md')}>?</button>
+               <button id="helpButton" onClick={() => window.togglePreferencePane(true)}>?</button>
                
                
             </div>

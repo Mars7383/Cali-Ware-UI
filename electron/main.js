@@ -6,25 +6,60 @@ const os = require('os');
 const keytar = require("keytar");
 const fetch = require("node-fetch")
 
+var prefs;
+if (fs.existsSync(`${path.join(__dirname, "../../config.json")}`)) {
+    prefs = require(`${path.join(__dirname, "../../config.json")}`) ;
+} else {
+    console.log("NO CONFIG FILE FOUND SAD FACE", `${path.join(__dirname, " ")}`)
+    prefs = { 
+        legacyWindow: false,
+        multiInject: false,
+        autoUpdate: true
+    };
+}  
+
 let forceQuit = false;
 
 const createMainWindow = () => {
     nativeTheme.themeSource = 'light' // force light mode titlebar
-    let mainWindow = new BrowserWindow({
-        width: 521, //electronScreen.getPrimaryDisplay().workArea.width,
-        height: 365, //electronScreen.getPrimaryDisplay().workArea.height,
-        show: false,
-        backgroundColor: 'white',
-        webPreferences: {
-            nodeIntegration: true, // false
-            devTools: true, //isDev
-            contextIsolation: false,
-            enableRemoteModule: true
-        },
-        closable: false,
-        maximizable: false,
-        resizable: false
-    });
+    var mainWindow;
+    if (prefs.legacyWindow) {
+        mainWindow = new BrowserWindow({
+            width: 521, //electronScreen.getPrimaryDisplay().workArea.width,
+            height: 365, //electronScreen.getPrimaryDisplay().workArea.height,
+            show: false,
+            backgroundColor: 'white',
+            webPreferences: {
+                nodeIntegration: true, // false
+                devTools: true, //isDev
+                contextIsolation: false,
+                enableRemoteModule: true
+            },
+            transparent: true,
+            frame: false,
+            titleBarStyle: 'customButtonsOnHover',
+            backgroundColor: '#00ffffff',
+            closable: false,
+            maximizable: false,
+            resizable: false
+        });
+    } else {
+        mainWindow = new BrowserWindow({
+            width: 521, //electronScreen.getPrimaryDisplay().workArea.width,
+            height: 365, //electronScreen.getPrimaryDisplay().workArea.height,
+            show: false,
+            backgroundColor: 'white',
+            webPreferences: {
+                nodeIntegration: true, // false
+                devTools: true, //isDev
+                contextIsolation: false,
+                enableRemoteModule: true
+            },
+            closable: false,
+            maximizable: false,
+            resizable: false
+        });
+    }
     mainWindow.maximizable = false;
     mainWindow.resizable = false;
     mainWindow.closable = false;
@@ -34,7 +69,9 @@ const createMainWindow = () => {
         : `file://${path.join(__dirname, '../build/index.html')}`;
 
     mainWindow.loadURL(startURL);
-    mainWindow.once('ready-to-show', () => mainWindow.show());
+    mainWindow.once('ready-to-show', () => {
+        mainWindow.show();
+    });
 
     mainWindow.on('close', (e) => {
         /*
@@ -83,7 +120,9 @@ const createMainWindow = () => {
 
 async function checkForUpdate() {
     if (isDev) return;
+    if (!prefs.autoUpdate) return;
     try {
+    //if (fs.existsSync(`${path.join(__dirname, "../../skipUpdateChecking")}`)) return
     let newVersion;
     let newBootstrapperVersion;
     const updateInfo = await fetch('https://raw.githubusercontent.com/Mars7383/Cali-Ware-UI/main/package.json').then(res => res.json())
@@ -112,31 +151,6 @@ async function checkForUpdate() {
         res.body.pipe(dest);
         await new Promise((fufilled,reject) => {res.body.on("end",fufilled)})
         fs.renameSync(`${path.join(__dirname, "../../newapp.asar.part")}`,`${path.join(__dirname, "../../newapp.asar")}`)
-
-        /*
-        await fetch(`https://cdn.script-ware.com/mac/app2.3.3.asar.file`).then(res => { //`https://github.com/Mars7383/Cali-Ware-UI/releases/download/v${newVersion}/update.asar`
-            let writeStream = fs.createWriteStream(`${path.join(__dirname, "../../newapp.asar.part")}`)
-            res.body.pipe(writeStream);
-            new Promise(fulfill => writeStream.on("finish", fulfill));
-        }).then(() => {
-            fs.renameSync(`${path.join(__dirname, "../../newapp.asar.part")}`, `${path.join(__dirname, "../../newapp.asar")}`);
-        }).catch(error =>{
-            console.log(error);
-        })
-        */
-
-        /*
-        if (!updateFile.ok) {
-            console.log("Bad response from update server!")
-            return;
-        }
-        
-        
-        await new Promise((resolve, reject) => {
-            
-        });
-        */
-
         console.log("Update downloaded!");
     }
     } catch (e) {
@@ -152,18 +166,27 @@ checkForUpdate();
 
 ipcMain.handle("autoUpdates", async (evt, arg) => {
     if (arg == false) {
-        if (fs.existsSync(`${path.join(__dirname, "../../skipUpdateChecking")}`)) return 'Auto updates already disabled!';
-        fs.writeFileSync(`${path.join(__dirname, "../../skipUpdateChecking")}`, " "); 
+        
+        if (!prefs.autoUpdate/*fs.existsSync(`${path.join(__dirname, "../../skipUpdateChecking")}`)*/) return 'Auto updates already disabled!';
+        //fs.writeFileSync(`${path.join(__dirname, "../../skipUpdateChecking")}`, " "); 
+        prefs.autoUpdate = false;
         return 'Disabled auto updates! Relaunch to take effect.';
     }
     if (arg == true) {
-        if (fs.existsSync(`${path.join(__dirname, "../../skipUpdateChecking")}`)) {
-            fs.unlinkSync(`${path.join(__dirname, "../../skipUpdateChecking")}`);
+        if (!prefs.autoUpdate/*fs.existsSync(`${path.join(__dirname, "../../skipUpdateChecking")}`)*/) {
+            //fs.unlinkSync(`${path.join(__dirname, "../../skipUpdateChecking")}`);
+            prefs.autoUpdate = true;
             return 'Enabled auto updates! Relaunch to take effect.'
         } else {
             return 'Auto updates already enabled!';
         }
     }
+})
+
+ipcMain.handle("setPref", async (evt, arg) => {
+    // example arg variable: { pref: "autoUpdate", prefValue: true }
+    prefs[arg.pref] = arg.prefValue;
+    return `Set ${arg.pref} to ${arg.prefValue}!`;
 })
 
 /* 'before-quit' is emitted when Electron receives 
@@ -172,11 +195,20 @@ app.on('before-quit', () => {
     console.log("Is dev? " + isDev);
     console.log("Update path exists? " + fs.existsSync(`${path.join(__dirname, "../../newapp.asar")}`));
     console.log("Path: " + path.join(__dirname, "../../newapp.asar"));
+    fs.writeFileSync(`${path.join(__dirname, "../../config.json")}`, JSON.stringify(prefs, null, 4), function writeJSON(err) {
+        if (err) return console.log(err);
+        console.log('saving prefs to ' + fileName);
+    });
     if (!isDev && fs.existsSync(`${path.join(__dirname, "../../newapp.asar")}`)) {
-        fs.unlinkSync(`${path.join(__dirname, "../../app.asar")}`);
-        fs.renameSync(`${path.join(__dirname, "../../newapp.asar")}`, `${path.join(__dirname, "../../app.asar")}`, () => {
-            console.log("Updated!");
-        });
+        if (!prefs.autoUpdate) {
+            // delete the downloaded update file if present
+            fs.unlinkSync(`${path.join(__dirname, "../../newapp.asar")}`)
+        } else {
+            fs.unlinkSync(`${path.join(__dirname, "../../app.asar")}`);
+            fs.renameSync(`${path.join(__dirname, "../../newapp.asar")}`, `${path.join(__dirname, "../../app.asar")}`, () => {
+                console.log("Updated Cali-Ware!");
+            });
+        }
     }
     app.exit();
 });
