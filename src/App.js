@@ -72,6 +72,7 @@ export default class extends Component {
         }}>
             Open Resources Folder
         </Button>
+        <Label id="version">version </Label>
         <br></br>
         <hr></hr>
         <center>

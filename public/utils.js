@@ -37,6 +37,9 @@ window.addEventListener('load', function () { // DOM is so annoying
     if (prefsObj2.autoUpdate) {
         document.getElementById("autoUpdateToggle").checked = true;
     }
+
+    document.getElementById("version").innerHTML = `version ${remote.app.getVersion()}`;
+    console.log(document.getElementById("version").innerHTML)
 })
 
 /*

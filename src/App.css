@@ -148,6 +148,12 @@ html, body {
   opacity: 1;
 }
 
+#version {
+  position: absolute;
+  left: 410px;
+  top: 255px;
+}
+
 Button {
   margin-bottom: 5px;
 }
