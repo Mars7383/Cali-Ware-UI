@@ -121,7 +121,7 @@ export default class extends Component {
           </div>
           <div>
           <textarea readOnly className="outputBox" spellCheck="false">
-            To attach Calamari-M, please press the "Attach Calamari" button.
+            
           </textarea>
           </div>
         </div>

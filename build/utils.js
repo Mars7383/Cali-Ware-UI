@@ -140,4 +140,4 @@ setInterval(() => {
         robloxExistedAtTheTimeThisVariableWasDefinedNoCap = true;
     }
 
-}, 100);
+}, 1000);
