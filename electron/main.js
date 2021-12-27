@@ -38,7 +38,7 @@ const createMainWindow = () => {
             transparent: true,
             frame: false,
             titleBarStyle: 'customButtonsOnHover',
-            backgroundColor: '#00ffffff',
+            backgroundColor: 'ffffffff', //'#00ffffff',
             closable: false,
             maximizable: false,
             resizable: false

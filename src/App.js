@@ -61,7 +61,7 @@ export default class extends Component {
           id="autoUpdateToggle"
           onClick= {(e) => {window.setPreference("autoUpdate", document.getElementById("autoUpdateToggle").checked)}}
         ></input>Auto updates
-        <img src="https://cdn.discordapp.com/attachments/765583918656389180/888188419921047562/2RMa5FjfEo1vgIAgA9GA1xpaZ6fAv4KQQAKmpn0N.png" width="100px" id="swchan"></img>
+        <img src="https://media.discordapp.net/attachments/914391779565010944/924856594917888020/image0.jpg" width="100px" id="swchan"></img>
         <Label marginTop="15px">Changes require an app restart. You may encounter bugs while testing with these options!</Label>
         <br></br>
         <br></br>
@@ -72,6 +72,7 @@ export default class extends Component {
         }}>
             Open Resources Folder
         </Button>
+        <p id="pending">(update downloaded)</p>
         <Label id="version">version </Label>
         <br></br>
         <hr></hr>
@@ -146,7 +147,7 @@ export default class extends Component {
              <Button color="white" marginLeft="7px" padding="0px 46px 0px 46px"  onClick={() => window.execute("CalamariDefaults://ESP")}>
              ESP
            </Button>
-               <Button color="white" marginLeft="7px" padding="0px 27px 0px 27px" onClick={() => {alert('"FE Gui" was missing so you can enjoy my script instead :D\n\n- Mars');window.execute("CalamariDefaults://Internal")}}>
+               <Button color="white" marginLeft="7px" padding="0px 27px 0px 27px" onClick={() => {window.execute("CalamariDefaults://Internal")}}>
                  Internal UI
                </Button>
            <hr></hr>

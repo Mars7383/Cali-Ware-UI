@@ -153,6 +153,15 @@ html, body {
   left: 410px;
   top: 255px;
 }
+#pending {
+  position: absolute;
+  visibility: hidden;
+  color: orange;
+  font-size: 8px;
+  font-weight: bold;
+  left: 403px;
+  top: 262px;
+}
 
 Button {
   margin-bottom: 5px;

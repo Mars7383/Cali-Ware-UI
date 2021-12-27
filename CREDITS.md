@@ -42,10 +42,11 @@
   <h2>QA Testing</h2>
   <ul>
     <li><a href="https://discord.com/users/572830503158284308">mattt#0001</a></li>
-    <li><a href="https://discord.com/users/556636433637703725">StereoThermal#7969</a></li>
+    <li><a href="https://discord.com/users/358691907792011266">Server_Noob#0365</a></li>
+    <li><a href="https://discord.com/users/556636433637703725">StereoTelemetry#7969</a></li>
     <li><a href="https://discord.com/users/716124330718658633">AMD#0869</a></li>
-    <li><a href="https://discord.com/users/883588477474721842">Milkias#7314</a></li>
-    <li><a href="https://discord.com/users/443959874192408578">Shasy#0001</a></li>
+    <li><a href="https://discord.com/users/883588477474721842">aimlock1gou#7314</a></li>
+    <li><a href="https://discord.com/users/443959874192408578">Shasanta#0001</a></li>
     <li><a href="https://discord.com/users/721544459086594049">ImmaturityDetected#1968</a></li>
     <br>
   </ul>

@@ -1,5 +1,5 @@
 const fs2 = require("fs"); // these have a 2 in their name because they are redeclared in the other js file and that makes the interpreter sad :(
-const path2 = require("path")
+const path2 = require("path");
 // Load prefs
 let prefsFileLocation2 = path2.join(__dirname, "../../config.json");
 var prefsObj2;
@@ -57,14 +57,21 @@ window.setPreference = async function(preference, value) { // string preference,
 window.minimizeWindow = function() {
     require("electron").remote.BrowserWindow.getFocusedWindow().minimize();
 }
-
+let updateAvailable = "unloaded";
 window.togglePreferencePane = function(bool) {
     if (bool) {
+        // we dont wanna keep checking the filesystem for update file, so we'll only do it once
+        if (updateAvailable == "unloaded") updateAvailable = fs.existsSync(path.join(__dirname, "../../newapp.asar"))
         document.getElementById("configPage").style.position = "static"
         document.getElementById("configPage").style.visibility = "visible"
+        try {if (updateAvailable) {
+            document.getElementById("pending").style.visibility = "visible"
+            firstUpdateCheck = false;
+        }} catch(err) {console.error(err)}
     } else {
         document.getElementById("configPage").style.position = "absolute"
         document.getElementById("configPage").style.visibility = "hidden"
+        document.getElementById("pending").style.visibility = "hidden"
     }
 }
 
@@ -84,47 +91,65 @@ sessionStorage.outputScrollPos = 0;
 
 let robloxExistedAtTheTimeThisVariableWasDefinedNoCap = false;
 
-setInterval(() => {
-    if (document.getElementsByClassName("editorBox").length == 0) {
-        if (editorVisible) {
-            //console.log("Editor left the screen")
-            editorVisible = false;
-        }
-    }
-    if (document.getElementsByClassName("editorBox").length == 1)  {
-        if (!editorVisible) {
+// migrating code from setInterval to onclick events
+
+var editorExists = true; //document.body.contains(document.getElementsByClassName("editorBox")[0]);
+var observer = new MutationObserver(function(mutations) {
+    if (document.body.contains(document.getElementsByClassName("editorBox")[0])) {
+        if (!editorExists) {
+            console.log("editor inserted (and output)");
             //console.log("Editor visible again")
-            document.getElementsByClassName("editorBox")[0].value = sessionStorage.editorText
-            document.getElementsByClassName("editorBox")[0].scrollTop = sessionStorage.editorScrollPos
+            let editorBox = document.getElementsByClassName("editorBox")[0];
+            let outputBox = document.getElementsByClassName("outputBox")[0];
+            editorBox.value = sessionStorage.editorText
+            editorBox.scrollTop = sessionStorage.editorScrollPos
             editorVisible = true;
-        } else {
-            //console.log("Storing editor values")
-            sessionStorage.editorText = document.getElementsByClassName("editorBox")[0].value
-            sessionStorage.editorScrollPos = document.getElementsByClassName("editorBox")[0].scrollTop
-        }
-    }
-
-    if (document.getElementsByClassName("outputBox").length == 0) {
-        if (outputVisible) {
-            //console.log("Output left the screen")
-            outputVisible = false;
-        }
-    }
-    if (document.getElementsByClassName("outputBox").length == 1)  {
-        if (!outputVisible) {
             //console.log("Output visible again")
-            document.getElementsByClassName("outputBox")[0].value = sessionStorage.outputText;
-            document.getElementsByClassName("outputBox")[0].style.color = sessionStorage.outputColor;
-            document.getElementsByClassName("outputBox")[0].scrollTop = sessionStorage.outputScrollPos
+            outputBox.value = sessionStorage.outputText;
+            outputBox.style.color = sessionStorage.outputColor;
+            outputBox.scrollTop = sessionStorage.outputScrollPos
             outputVisible = true;
-        } else {
-            //console.log("Storing output values")
-            sessionStorage.outputText = document.getElementsByClassName("outputBox")[0].value
-            sessionStorage.outputColor = document.getElementsByClassName("outputBox")[0].style.color
-            sessionStorage.outputScrollPos = document.getElementsByClassName("outputBox")[0].scrollTop
         }
+        editorExists = true;
+    } else if (editorExists) {
+        editorExists = false;
+        console.log("editor removed (and output)");
+        //console.log("Editor left the screen")
+        editorVisible = false;
+        outputVisible = false;
+        //console.log("Storing editor values")
+        //outputBox.removeEventListener("change");
+        //editorBox.removeEventListener("change");
+        /*
+        sessionStorage.editorText = document.getElementsByClassName("editorBox")[0].value
+        sessionStorage.editorScrollPos = document.getElementsByClassName("editorBox")[0].scrollTop
+        //console.log("Output left the screen")
+        //console.log("Storing output values")
+        sessionStorage.outputText = document.getElementsByClassName("outputBox")[0].value
+        sessionStorage.outputColor = document.getElementsByClassName("outputBox")[0].style.color
+        sessionStorage.outputScrollPos = document.getElementsByClassName("outputBox")[0].scrollTop
+        */
     }
+ 
+});
+document.addEventListener("DOMContentLoaded", function(event) {
+    console.log("DOM fully loaded and parsed");
+    let editorBox = document.getElementsByClassName("editorBox")[0];
+    let outputBox = document.getElementsByClassName("outputBox")[0];
+    editorBox.addEventListener('change', (event) => {
+        sessionStorage.editorText = event.target.value;
+        sessionStorage.editorScrollPos = event.target.scrollTop;
+    });
+    outputBox.addEventListener('change', (event) => {
+        sessionStorage.outputText = event.target.value;
+        sessionStorage.outputScrollPos = event.target.scrollTop;
+        sessionStorage.outputColor = event.target.style.color
+    });
+    observer.observe(document.body, {childList: true, subtree: true});
+});
 
+/*
+setInterval(() => {
     // reset output box once roblox closes
     if (getProcesses().length == 0) {
         if (robloxExistedAtTheTimeThisVariableWasDefinedNoCap) {
@@ -140,4 +165,5 @@ setInterval(() => {
         robloxExistedAtTheTimeThisVariableWasDefinedNoCap = true;
     }
 
-}, 1000);
+}, 2500);
+*/
