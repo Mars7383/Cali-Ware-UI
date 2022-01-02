@@ -140,8 +140,9 @@ html, body {
 #swchan {
   position: absolute;
   left: 380px;
-  top: 0px;
+  top: 20px;
   opacity: 0;
+  transition: opacity 0.5s;
 }
 
 #swchan:hover {

@@ -14,11 +14,19 @@ if (fs2.existsSync(prefsFileLocation2)) {
 }
 // Run prefs
 let checkedStyle = "user-select: none; -webkit-appearance: none; border-width: 1px; border-style: solid; border-color: rgb(44, 145, 252); border-radius: 3px; background-color: rgb(59, 153, 252); padding: 6px; margin: 0px 1px; box-shadow: none; transition: all 0.4s ease 0s;";
-window.addEventListener('load', function () { // DOM is so annoying
+window.addEventListener('load', function () { // DOM is so annoying 🙄
     // Legacy window mode
     if (prefsObj2.legacyWindow) {
-        document.body.style.width = "521";
-        document.body.style.height = "365";
+        // CSS
+        /*
+        position: absolute;
+        top: 10px;
+        max-height: 360px;
+        */
+        document.body.style.position = "absolute";
+        document.body.style.top = "5px";
+        //document.body.style.width = "521px";
+        document.body.style.height = "365px";
         document.body.style.borderRadius = "5px";
         document.getElementById("titlebar").style.visibility = "visible";
         document.getElementById("titlebar").style.position = "static";
@@ -91,7 +99,7 @@ sessionStorage.outputScrollPos = 0;
 
 let robloxExistedAtTheTimeThisVariableWasDefinedNoCap = false;
 
-// migrating code from setInterval to onclick events
+// migrating code from setInterval loops to events
 
 var editorExists = true; //document.body.contains(document.getElementsByClassName("editorBox")[0]);
 var observer = new MutationObserver(function(mutations) {
