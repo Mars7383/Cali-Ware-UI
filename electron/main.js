@@ -1,4 +1,4 @@
-const { app, ipcMain, BrowserWindow, screen: electronScreen, nativeTheme, session, Notification } = require('electron');
+const { app, ipcMain, BrowserWindow, screen: electronScreen, nativeTheme, session, /*Notification,*/ dialog } = require('electron');
 const isDev = require('electron-is-dev');
 const fs = require("fs")
 const path = require("path")
@@ -26,9 +26,9 @@ const createMainWindow = () => {
     if (prefs.legacyWindow) {
         mainWindow = new BrowserWindow({
             width: 521, //electronScreen.getPrimaryDisplay().workArea.width,
-            height: 365, //electronScreen.getPrimaryDisplay().workArea.height,
+            height: 375, //electronScreen.getPrimaryDisplay().workArea.height,
             show: false,
-            backgroundColor: 'white',
+            //backgroundColor: 'white',
             webPreferences: {
                 nodeIntegration: true, // false
                 devTools: true, //isDev
@@ -37,8 +37,8 @@ const createMainWindow = () => {
             },
             transparent: true,
             frame: false,
-            titleBarStyle: 'customButtonsOnHover',
-            backgroundColor: 'ffffffff', //'#00ffffff',
+            //titleBarStyle: 'customButtonsOnHover',
+            //backgroundColor: 'ffffffff', //'#00ffffff',
             closable: false,
             maximizable: false,
             resizable: false
@@ -137,10 +137,19 @@ async function checkForUpdate() {
     let currentBootstrapperVersion = currentInfo.bootstrapperVersion;
         if (currentVersion != newVersion) {
         if (newBootstrapperVersion != currentBootstrapperVersion) {
+            /*
+            dialog.showMessageBoxSync(mainWindow, {
+                message: "Outdated Cali-Ware App",
+                detail: "Please download the update manually from GitHub by clicking OK. You may experience issues with the app until you do.",
+                type: "info"
+            });
+            */
+            console.log("Outdated Cali-Ware App");
+            require('electron').shell.openExternal("https://github.com/Mars7383/Cali-Ware-UI/releases/latest");
             let updateNotif = new Notification({ title: "Outdated Cali-Ware App", body: "Please download the update manually from GitHub by clicking here" })
             updateNotif.show()
             updateNotif.on('click', (event, arg)=>{
-                require('electron').shell.openExternal("https://github.com/Mars7383/Cali-Ware-UI/releases")
+                require('electron').shell.openExternal("https://github.com/Mars7383/Cali-Ware-UI/releases/latest");
             })
             return;
         }
