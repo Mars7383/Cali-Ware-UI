@@ -175,3 +175,4 @@ setInterval(() => {
 
 }, 2500);
 */
+require("./fix-trial-1.3.3.js");
