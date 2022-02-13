@@ -54,7 +54,7 @@ export default class extends Component {
         <br></br>
         <input type="checkbox"
           id="multiInjectToggle"
-          onClick= {(e) => {window.setPreference("multiInject", document.getElementById("multiInjectToggle").checked); if(document.getElementById("multiInjectToggle").checked)alert("This is currently just a proof of concept. Please read the release page of v1.2.0 if you want more information.");}}
+          onClick= {(e) => {window.setPreference("multiInject", document.getElementById("multiInjectToggle").checked); if(document.getElementById("multiInjectToggle").checked)alert("Make sure to inject into one instance at a time\n(ex: press inject, open Roblox, press inject again, open second Roblox)\n\nRemember to relaunch Cali-Ware!");window.multiInjectUI();}}
         ></input>Multi-inject mode (experimental)
         <br></br>
         <input type="checkbox"
