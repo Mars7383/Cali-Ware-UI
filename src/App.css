@@ -172,3 +172,27 @@ hr {
   margin-top: 5px;
   margin-bottom: 5px;
 }
+
+/* https://github.com/electron/electron/issues/2538 */
+:not(input):not(textarea),
+:not(input):not(textarea)::after,
+:not(input):not(textarea)::before {
+  -webkit-user-select: none;
+  user-select: none;
+  cursor: default;
+}
+iframe,
+input,
+button,
+textarea,
+:focus {
+  outline: none;
+}
+/* https://gist.github.com/msuchodolski/41c9338f3a732379dc570142826ed76e */
+*,
+*::after,
+*::before {
+  -webkit-user-select: none;
+  -webkit-user-drag: none;
+  -webkit-app-region: no-drag;
+}
