@@ -1,5 +1,8 @@
 <h1>Cali-Ware UI</h1>
-A remake of Calamari-M's user interface for Script-Ware M, made with <a href="https://reactdesktop.js.org">react-desktop</a> and <a href="https://www.electronjs.org/">electron.js</a>
+<p>A remake of Calamari-M's user interface for Script-Ware M, made with <a href="https://reactdesktop.js.org">react-desktop</a> and <a href="https://www.electronjs.org/">electron.js</a></p>
+<br>
+
+⭐ Cali-Ware also allows you to inject into multiple processes (multi-inject)!
 
 <center><a href="https://github.com/Mars7383/Cali-Ware-UI/releases/latest/"><img src="https://cdn.discordapp.com/attachments/765583918656389180/884535880340090910/CW.png" width="400"></img></a></center>
 
