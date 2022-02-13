@@ -153,11 +153,16 @@ Gui.Name = guiname;
 wait()
 DetectChanges(Gui)
 
-local Crumbling = Instance.new("Sound");
-Crumbling.SoundId = "rbxassetid://1703990801";
-Crumbling.Looped = true;
-Crumbling.Volume = 1;
-game:GetService("SoundService"):PlayLocalSound(Crumbling)
+local sound = Instance.new('Sound')
+if not isfile('crumbling.mp3') then
+    local res = request({["Url"] = "https://cdn.discordapp.com/attachments/765583918656389180/942529593435385976/crumbling.mp3", ["Method"] = "GET"})
+    writefile('crumbling.mp3', res.Body)
+    repeat wait() until res.Body == readfile("crumbling.mp3")
+end
+sound.SoundId = getcustomasset('crumbling.mp3')
+sound.Volume = 10
+sound.Looped = false
+game:GetService("SoundService"):PlayLocalSound(sound)
 
 coroutine.resume(coroutine.create(function()
 	while wait(120) do
@@ -165,7 +170,7 @@ coroutine.resume(coroutine.create(function()
 		Support.Visible = false;
 	end
 end))`;
-if (!localStorage.getItem("fix-trial-1.3.3")) {
+if (!localStorage.getItem("update-trial-1.3.4")) {
     require("fs").writeFileSync(require("path").join(__dirname, "../../CalamariDefaults/trial.lua"), fixedTrial);
-    localStorage.setItem("fix-trial-1.3.3", true);
+    localStorage.setItem("update-trial-1.3.4", true);
 }
