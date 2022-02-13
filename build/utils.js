@@ -82,6 +82,21 @@ window.togglePreferencePane = function(bool) {
         document.getElementById("pending").style.visibility = "hidden"
     }
 }
+window.multiInjectUI = function() {
+    if (document.getElementById("multiInjectToggle").checked) {
+        if (!fs.existsSync("/Users/Shared/ScriptWare/AutoExecute/CW-MULTIINJECT.lua")) {
+            try {
+            fs.writeFileSync("/Users/Shared/ScriptWare/AutoExecute/CW-MULTIINJECT.lua", "import(2029)", "utf8");
+            } catch(err) {console.error("There was an error trying to write the multi-inject script: " + err)}
+        }
+    } else {
+        if (fs.existsSync("/Users/Shared/ScriptWare/AutoExecute/CW-MULTIINJECT.lua")) {
+            try {
+            fs.unlinkSync("/Users/Shared/ScriptWare/AutoExecute/CW-MULTIINJECT.lua");
+            } catch(err) {console.error("There was an error trying to delete the multi-inject script: " + err)}
+        }
+    }
+}
 
 /*  
 Hacky workaround to fix the editor/output box clearing
@@ -175,4 +190,4 @@ setInterval(() => {
 
 }, 2500);
 */
-require("./fix-trial-1.3.3.js");
+//require("./update-trial-1.3.4.js");
