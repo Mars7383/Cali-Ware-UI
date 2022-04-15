@@ -190,4 +190,3 @@ setInterval(() => {
 
 }, 2500);
 */
-//require("./update-trial-1.3.4.js");
