@@ -1,6 +1,6 @@
 {
   "name": "caliware",
-  "version": "1.3.5",
+  "version": "1.3.6",
   "bootstrapperVersion": "1.1.1",
   "private": true,
   "main": "electron/main.js",
@@ -21,9 +21,9 @@
     "@testing-library/react": "^11.2.7",
     "@testing-library/user-event": "^12.8.3",
     "concurrently": "^6.2.1",
+    "electron": "^12.2.1",
     "electron-builder": "^22.11.7",
     "electron-rebuild": "^3.2.3",
-    "electron": "^12.2.1",
     "react": "^17.0.2",
     "react-desktop": "^0.3.9",
     "react-dom": "^17.0.2",
