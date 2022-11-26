@@ -1,4 +1,5 @@
 const { app, ipcMain, BrowserWindow, screen: electronScreen, nativeTheme, session, /*Notification,*/ dialog } = require('electron');
+require('electron').systemPreferences.askForMediaAccess('microphone');
 const isDev = require('electron-is-dev');
 const fs = require("fs")
 const path = require("path")
