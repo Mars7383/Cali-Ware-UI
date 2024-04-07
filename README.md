@@ -3,9 +3,7 @@
 
 ⭐ Cali-Ware also allows you to inject into multiple processes (multi-inject)!
 
-<center><img src="https://i.imgur.com/UHzbzLW.png" height="250"></img></center>
-
-<hr>
+<center><img src="https://i.imgur.com/UHzbzLW.png"></img></center>
 
 <h2>❗ Script-Ware was discontinued in 2023</h2>
 <p>This UI will not be useable at all. You can, however, get past the login screen by:</p>
@@ -14,7 +12,8 @@
   <li>Using the Calamari trial mode recreation login: username <code>trial</code>, password <code>trial</code></li>
 </ul>
 <p>Again, note that nothing will function. If you want any of the bundled scripts from Calamari: press the <code>?</code> button on the bottom-right of the <code>Executor</code> tab > <code>Open Resources Folder</code> > Browse to <code>Calamari Defaults</code></p>
-
+<br>
+<hr>
 <h2>FAQ</h2>
 <details>
   <summary><strong>Is this a free mac exploit?!??!?</strong></summary>
