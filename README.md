@@ -1,12 +1,19 @@
 <h1>Cali-Ware UI</h1>
 <p>A remake of Calamari-M's user interface for Script-Ware M, made with <a href="https://reactdesktop.js.org">react-desktop</a> and <a href="https://www.electronjs.org/">electron.js</a></p>
-<br>
 
 ⭐ Cali-Ware also allows you to inject into multiple processes (multi-inject)!
 
-<center><a href="https://github.com/Mars7383/Cali-Ware-UI/releases/latest/"><img src="https://cdn.discordapp.com/attachments/765583918656389180/884535880340090910/CW.png" width="400"></img></a></center>
+<center><img src="https://i.imgur.com/UHzbzLW.png" height="250"></img></center>
 
 <hr>
+
+<h2>❗ Script-Ware was discontinued in 2023</h2>
+<p>This UI will not be useable at all. You can, however, get past the login screen by:</p>
+<ul>
+  <li>Using the development mode login: username <code>!DevelopmentBypass</code>, any password</li>
+  <li>Using the Calamari trial mode recreation login: username <code>trial</code>, password <code>trial</code></li>
+</ul>
+<p>Again, note that nothing will function. If you want any of the bundled scripts from Calamari: press the <code>?</code> button on the bottom-right of the <code>Executor</code> tab > <code>Open Resources Folder</code> > Browse to <code>Calamari Defaults</code></p>
 
 <h2>FAQ</h2>
 <details>
